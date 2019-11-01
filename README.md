@@ -1,5 +1,5 @@
 # JP Morgan Code For Good Team 16
-## Organization: CLIC Sargent
+## Organization: [CLIC Sargent](https://www.clicsargent.org.uk/)
 
 ### Mission
 CLIC Sargent fights tirelessly to stop cancer destroying young lives. We know everyone is different, so we work hard to help when each child and young person needs it most. We shape the work we do around six core principles; day to day support, financial support, homes from home, limiting the damage, bereavement support and campaigning.
