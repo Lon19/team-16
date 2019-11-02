@@ -20,7 +20,7 @@ class App extends React.Component {
             <HPBar/>
           <Row>
             <Container>
-              <StoryCard game_id='12345' user_id='89'/>
+              <StoryCard game_id='12349' user_id='89'/>
             </Container>
           </Row>
             <BottomNavigation/>
@@ -49,6 +49,11 @@ class HPBar extends React.Component {
 }
 
 class StoryCard extends React.Component {
+  constructor(props, context) {
+    super(props, context);
+    this.fetchOnClickLeft = this.fetchOnClickLeft.bind(this);
+    this.fetchOnClickRight = this.fetchOnClickRight.bind(this);
+  }
   componentDidMount() {
     fetch(`/${this.props.game_id}/${this.props.user_id}`)
     .then(data => data.json())
@@ -64,6 +69,26 @@ class StoryCard extends React.Component {
     description: "mission commencing in ....."
   }
 
+  fetchOnClickLeft = () => {
+    fetch(`/${this.props.game_id}/left`)
+    .then(data => data.json())
+    .then((data) => {
+      console.log(data)
+      this.setState({title: data.name,
+                     description: data.desc})
+    }).catch(console.log)
+  }
+
+  fetchOnClickRight = () => {
+    fetch(`/${this.props.game_id}/right`)
+    .then(data => data.json())
+    .then((data) => {
+      console.log(data)
+      this.setState({title: data.name,
+                     description: data.desc})
+    }).catch(console.log)
+  }
+
   render() {
     return (
       <Card >
@@ -74,8 +99,8 @@ class StoryCard extends React.Component {
           </Card.Text>
           <Card.Img src="./image/4.jpg" />
           <Row>
-            <Col><Button variant="primary">Venus</Button></Col>
-            <Col><Button variant="primary">Mars</Button></Col>
+            <Col><Button variant="primary" onClick={this.fetchOnClickLeft}>Venus</Button></Col>
+            <Col><Button variant="primary" onClick={this.fetchOnClickRight}>Mars</Button></Col>
           </Row>
         </Card.Body>
       </Card>
