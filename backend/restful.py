@@ -39,7 +39,7 @@ def init_game(game_id):
               yes, endNode, "./image/4.jpg")
 
     peace = StoryNode("peace",
-              "The aliens demand an offering of peace. They want us to mine 5 tonnes of gold (truly the universal currency). After mining it, a sneaky thought occurs to us: should we keep the gold instead?",
+              "The aliens demand an offering of peace. They want us to mine 5 tonnes of gold. After mining it, a sneaky thought occurs to us: should we keep the gold instead?",
               keep, offer, "./image/3.jpg")
 
     fight = StoryNode('fight','you fought and failed!', endNode, endNode, "./image/1.jpg")
