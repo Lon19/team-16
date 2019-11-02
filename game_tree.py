@@ -27,13 +27,13 @@ class game_tree:
     def get_card(self):
         return{"Event:":a.event,"Left decision:": a.l_button,"Right decision:":a.r_button}
 
-
+'''
 a = node('where to go?','mars','venus',node('alien','u r dead'))
 b = game_tree(a)
 
 b.decide_next_node('l')
 print(b.get_card())
-'''
+
 b.get_card()
 '''
 
@@ -44,6 +44,9 @@ game = game_tree()
 @app.route("/", methods=['PUT'])
 def return_action():
     action = str(request.data.get('text', ''))
-    next_action = game.decide_next_node(action)
+    game.decide_next_node(action)
+    next_action = game.get_card()
     return jsonify(next_action)
+
+
 
