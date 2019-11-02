@@ -1,0 +1,21 @@
+from game_tree import game_tree,node
+
+individual_game = node('It is the year 2100. You are an astronaut from the Zetta Corporation. Your mission: make the solar system ours. Be warned, there will be obstacles in your way.Where do we first expand to?','/image/1.jpg','Mars','Venus')
+individual_game.lc = node('Aliens! The myths about martians were real after all. How should we face the aliens?','/image/2.jpg','fight','peace')
+individual_game.lc.rc = node('The aliens demand an offering of peace. They want us to mine 5 tonnes of gold (truly the universal currency). After mining it, a sneaky thought occurs to us: should we keep the gold instead?','/image/3.jpg','Keep (Gold+)','Offer (Sentiment +)')
+individual_game.lc.rc.rc = node('The aliens are very happy with your peace offering. They offer to take you to Uranus (a gas giant) on their fastest ship. Do you accept?','/image/4.jpg','yes','no')
+individual_game.lc.rc.rc.lc = node("It's a trap! They send us into the nearest wormhole and we go back into the year 2019. Brexit is about to occur. Do we tell the Brits the outcome and prevent Brexit?",'/image/5.jpg','yes','no')
+individual_game.lc.rc.rc.lc.rc = node('Brexit occurs, changing the course of history. We are dragged back to the year 2100 where we are now at war with the Martians.','/image/6.jpg')
+
+mygame  = game_tree(individual_game)
+mygame.get_card()
+mygame.decide_next_node('l')
+mygame.get_card()
+mygame.decide_next_node('r')
+mygame.get_card()
+mygame.decide_next_node('r')
+mygame.get_card()
+mygame.decide_next_node('l')
+mygame.get_card()
+mygame.decide_next_node('r')
+print(mygame.get_card())

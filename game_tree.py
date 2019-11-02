@@ -1,22 +1,27 @@
-import flask
-from flask import request, jsonify
-
 class node:
-    def __init__(self,event = None, l_button = None, r_button = None, lc = None , rc = None):
+    def __init__(self,event = None, img = '', l_button = None, r_button = None):
         self.event = event
+        self.img = img
         self.l_button = l_button
         self.r_button = r_button
-        self.lc = lc
-        self.lc = rc
+        self.lc = None
+        self.lc = None
 
-class game_tree:
+    def set_lc(self,event = None, img = '',l_button = None, r_button = None):
+        self.lc = node(event,img,l_button,r_button)
+
+    def set_rc(self,event = None, img='',l_button = None, r_button = None):
+        self.rc = node(event,img,l_button,r_button)
+
+
+class game_tree(node):
     def __init__(self,curr = node(),sentiment = 0, resources = 0):
         self.curr = curr
         self.sentiment = sentiment
         self.resources = resources
 
-    def set_curr(self,event = None, l_button = None, r_button = None, lc = None , rc = None):
-        self.curr = node(event,l_button,r_button,lc,rc)
+    def set_curr(self,event = None, img='',l_button = None, r_button = None):
+        self.curr = node(event,img,l_button,r_button)
 
     def decide_next_node(self,action):
         if action == 'l':
@@ -25,28 +30,7 @@ class game_tree:
             self.curr = self.curr.rc
 
     def get_card(self):
-        return{"Event:":a.event,"Left decision:": a.l_button,"Right decision:":a.r_button}
-
-'''
-a = node('where to go?','mars','venus',node('alien','u r dead'))
-b = game_tree(a)
-
-b.decide_next_node('l')
-print(b.get_card())
-
-b.get_card()
-'''
-
-app = flask.Flask(__name__)
-app.config["DEBUG"] = True
-game = game_tree()
-
-@app.route("/", methods=['PUT'])
-def return_action():
-    action = str(request.data.get('text', ''))
-    game.decide_next_node(action)
-    next_action = game.get_card()
-    return jsonify(next_action)
+        return {'event': self.curr.event, 'left_decision' : self.curr.l_button,'right_decision' : self.curr.r_button}
 
 
 
