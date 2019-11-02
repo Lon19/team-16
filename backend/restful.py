@@ -13,7 +13,7 @@ CORS(app)
 games = {}
 
 
-def init_game():
+def init_game(game_id):
     endNode = StoryNode("end", "you reached the end", None, None)
     optionA = StoryNode("venus", "you chose venus", endNode, endNode)
     optionB = StoryNode("mars", "you chose mars", endNode, endNode)
@@ -21,7 +21,7 @@ def init_game():
         "start", "which planet do you want to explore?", optionA, optionB)
 
     players = []
-    new_game = Game(root, players, 12345)
+    new_game = Game(root, players, game_id)
     games[new_game.id] = new_game
 
 
@@ -31,18 +31,20 @@ def starting():
     return "hello"
 
 
-@app.route("/<user_id>", methods=["PUT", "GET"])
-def start_game(user_id):
-    init_game()
-    game = games[12345]
-    state = game.currStoryState
-    player = Player(state, user_id)
-    game.addPlayer(player)
-    return jsonify(name=state.name, desc=state.description)
+# @app.route("/<user_id>", methods=["PUT", "GET"])
+# def start_game(user_id):
+#     init_game()
+#     game = games[12345]
+#     state = game.currStoryState
+#     player = Player(state, user_id)
+#     game.addPlayer(player)
+#     return jsonify(name=state.name, desc=state.description)
 
 
 @app.route("/<int:game_id>/<int:user_id>", methods=["PUT", "GET"])
 def join_game(game_id, user_id):
+    if (not game_id in games):
+        init_game(game_id)
     game = games.get(game_id)
     state = game.currStoryState
     game.addPlayer(Player(state, user_id))
