@@ -48,7 +48,8 @@ def join_game(game_id, user_id):
     game = games.get(game_id)
     state = game.currStoryState
     game.addPlayer(Player(state, user_id))
-    return jsonify(name=state.name, desc=state.description)
+    return jsonify(name=state.name, desc=state.description,
+                   childA=state.optionA.name, childB=state.optionB.name)
 
 
 @app.route("/<int:game_id>/left", methods=["GET", "PUT"])
@@ -58,7 +59,10 @@ def choose_left(game_id):
     while(not game.allResponsesTaken):
         pass
     state = game.currStoryState
-    return jsonify(name=state.name, desc=state.description)
+    if (state == None):
+        del games[game_id]
+    return jsonify(name=state.name, desc=state.description,
+                   childA=state.optionA.name, childB=state.optionB.name)
 
 
 @app.route("/<int:game_id>/right", methods=["GET", "PUT"])
@@ -68,7 +72,12 @@ def choose_right(game_id):
     while(not game.allResponsesTaken):
         pass
     state = game.currStoryState
-    return jsonify(name=state.name, desc=state.description)
+    if (state == None):
+        del games[game_id]
+    return jsonify(name=state.name, desc=state.description,
+                   childA=state.optionA.name, childB=state.optionB.name)
+
+# add leave game functionaltiies
 
 
 app.run(port=8080, debug=1)

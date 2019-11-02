@@ -10,7 +10,6 @@ class Game:
         self.optionBVotes = 0
         self.id = id
         self.allResponsesTaken = False
-        self.endOfGame = False
 
     def updateCurrState(self):
         if self.optionAVotes > self.optionBVotes:
