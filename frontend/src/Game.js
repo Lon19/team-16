@@ -22,7 +22,7 @@ class Game extends React.Component {
           <Row>
             <Container>
               <StoryCard
-                game_id='81'
+                game_id='91'
                 user_id={Math.floor(Math.random() * 1000 + 1)}
               />
             </Container>
