@@ -20,7 +20,7 @@ class App extends React.Component {
             <HPBar/>
           <Row>
             <Container>
-              <StoryCard game_id='12349' user_id='89'/>
+              <StoryCard game_id='{Math.floor((Math.random() * 1000) + 1)}' user_id='89'/>
             </Container>
           </Row>
             <BottomNavigation/>
