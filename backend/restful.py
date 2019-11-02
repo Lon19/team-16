@@ -1,4 +1,5 @@
 from flask import Flask
+from flask import request, jsonify
 from flask_restful import Resource, Api
 from flask_cors import CORS
 import requests
@@ -11,25 +12,61 @@ CORS(app)
 
 games = {}
 
-@app.route("/")
-def start_game():
+
+def init_game():
     endNode = StoryNode("end", "you reached the end", None, None)
     optionA = StoryNode("venus", "you chose venus", endNode, endNode)
     optionB = StoryNode("mars", "you chose mars", endNode, endNode)
-    root = StoryNode("start", "which planet do you want to explore?", optionA, optionB)
+    root = StoryNode(
+        "start", "which planet do you want to explore?", optionA, optionB)
 
     players = []
-    playerA = Player(root)
-    players.append(playerA)
     new_game = Game(root, players, 12345)
-    games.add(new_game.id, new_game)
+    games[new_game.id] = new_game
 
-@app.route("/join_game", methods=["GET"])
-def join_game():
-    player_id = request.args.get('player_id')
-    game_id = request.args.get('game_id')
-    games.get(game_id).add_player(player_id)
 
-@app.route("/choose_left")
-def choose_left():
-    
+@app.route("/")
+def starting():
+    print("hello")
+    return "hello"
+
+
+@app.route("/<user_id>", methods=["PUT", "GET"])
+def start_game(user_id):
+    init_game()
+    game = games[12345]
+    state = game.currStoryState
+    player = Player(state, user_id)
+    game.addPlayer(player)
+    return jsonify(name=state.name, desc=state.description)
+
+
+@app.route("/<int:game_id>/<int:user_id>", methods=["PUT", "GET"])
+def join_game(game_id, user_id):
+    game = games.get(game_id)
+    state = game.currStoryState
+    game.addPlayer(Player(state, user_id))
+    return jsonify(name=state.name, desc=state.description)
+
+
+@app.route("/<int:game_id>/left", methods=["GET", "PUT"])
+def choose_left(game_id):
+    game = games.get(game_id)
+    game.voteOptionLeft()
+    while(not game.allResponsesTaken):
+        pass
+    state = game.currStoryState
+    return jsonify(name=state.name, desc=state.description)
+
+
+@app.route("/<int:game_id>/right", methods=["GET", "PUT"])
+def choose_right(game_id):
+    game = games.get(game_id)
+    game.voteOptionLeft()
+    while(not game.allResponsesTaken):
+        pass
+    state = game.currStoryState
+    return jsonify(name=state.name, desc=state.description)
+
+
+app.run(port=8080, debug=1)
