@@ -1,134 +1,108 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import Card from 'react-bootstrap/Card';
-import Button from 'react-bootstrap/Button';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import Navbar from 'react-bootstrap/Navbar';
-import Nav from 'react-bootstrap/Nav';
-import ProgressBar from 'react-bootstrap/ProgressBar';
+import React, { Component } from "react";
+import { MDBIcon } from "mdbreact";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import Game from "./Game";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import Container from "react-bootstrap/Container";
+import Chat from "./Chat";
 
-class App extends React.Component {
-  render() {
-    return (
-      <div>
-        <Container>
-            <Header/>
-            <HPBar/>
-          <Row>
-            <Container>
-              <StoryCard game_id='81' user_id={Math.floor((Math.random() * 1000) + 1)}/>
-            </Container>
-          </Row>
-            <BottomNavigation/>
-        </Container>
-      </div>
-    );
-  }
+function App() {
+  return (
+    <div>
+      <Router>
+        <div>
+          <Route path='/' exact component={Home} />
+          <Route path='/singleGame' component={GameDifficulty} />
+          <Route path='/createMultiGame' component={MultiGame} />
+          <Route path='/joinGame' component={JoinMultiGame} />
+          <Route path='/chat' component={Chat} />
+        </div>
+      </Router>
+    </div>
+  );
 }
 
-class Header extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1 className="text-center">Space Mission!</h1>
-      </div>
-    );
-  }
+function Home() {
+  return <Navigations />;
 }
 
-class HPBar extends React.Component {
-  render() {
-    return (
-      <ProgressBar now={60} />
-    );
-  }
-}
-
-class StoryCard extends React.Component {
-  constructor(props, context) {
-    super(props, context);
-    this.fetchOnClickLeft = this.fetchOnClickLeft.bind(this);
-    this.fetchOnClickRight = this.fetchOnClickRight.bind(this);
-  }
-  componentDidMount() {
-    fetch(`/${this.props.game_id}/${this.props.user_id}`)
-    .then(data => data.json())
-    .then((data) => {
-      console.log(data)
-      this.setState({title: data.name,
-                     description: data.desc,
-                     childA: data.childA,
-                     childB: data.childB})
-    }).catch(console.log)
-  }
-
-  state = {
-    title: "Start Your Mission!!!!!!!!!",
-    description: "mission commencing in ....."
-  }
-
-  fetchOnClickLeft = () => {
-    fetch(`/${this.props.game_id}/left`)
-    .then(data => data.json())
-    .then((data) => {
-      console.log(data)
-      this.setState({title: data.name,
-                     description: data.desc,
-                     childA: data.childA,
-                     childB: data.childB})
-    }).catch(console.log)
-  }
-
-  fetchOnClickRight = () => {
-    fetch(`/${this.props.game_id}/right`)
-    .then(data => data.json())
-    .then((data) => {
-      console.log(data)
-      this.setState({title: data.name,
-                     description: data.desc,
-                     childA: data.childA,
-                     childB: data.childB})
-    }).catch(console.log)
-  }
-
-  render() {
-    return (
-      <Card >
-        <Card.Body>
-          <Card.Title>{this.state.title}</Card.Title>
-          <Card.Text>
-            {this.state.description}
-          </Card.Text>
-          <Card.Img src="./image/4.jpg" />
-          <br/>
-          <br/>
-          <br/>
-          <Row>
-            <Col className="text-center"><Button variant="primary" onClick={this.fetchOnClickLeft}>{this.state.childA}</Button></Col>
-            <Col className="text-center"><Button variant="primary" onClick={this.fetchOnClickRight}>{this.state.childB}</Button></Col>
-          </Row>
-        </Card.Body>
-      </Card>
-    );
-  }
-}
-
-class BottomNavigation extends React.Component {
-  render() {
-    return (
+function Navigations() {
+  return (
+    <div>
       <Container>
-      <Navbar expand="lg" fixed="bottom" >
-        <Nav.Link href='#games'>Games</Nav.Link>
-        <Nav.Link href='#home'>Home</Nav.Link>
-        <Nav.Link href='#chat'>Chat</Nav.Link>
-      </Navbar>
+        <Row>
+          <Col>
+            <Link to='/singleGame'>Single Player</Link>
+          </Col>
+          <Col>
+            <Link to='/chat'>
+              <ion-icon name='chatboxes'></ion-icon>
+            </Link>
+          </Col>
+        </Row>
+        <br />
+        <Row>
+          <Col>
+            <Link to='/singleGame'>Create Game</Link>
+          </Col>
+        </Row>
+        <br />
+        <Row>
+          <Col>
+            <Link to='/joinGame'>Join Game</Link>
+          </Col>
+        </Row>
       </Container>
-    );
-  }
+    </div>
+  );
+}
+
+function JoinMultiGame() {
+  return (
+    <div>
+      <Container>
+        <Row>
+          <Button variant='light'>
+            <Link to='/createMultiGame'>Game ID: 91</Link>
+          </Button>
+        </Row>
+      </Container>
+    </div>
+  );
+}
+function MultiGame() {
+  return (
+    <div>
+      <Game />
+    </div>
+  );
+}
+
+function GameDifficulty() {
+  return (
+    <div>
+      <Container>
+        <Row>
+          <Button variant='primary'>
+            <Link to='/createMultiGame' style={{ color: "white" }}>
+              Space Odyssey (Easy)
+            </Link>
+          </Button>
+        </Row>
+        <br />
+        <Row>
+          <Button variant='primary'>Monsters Inc (Medium)</Button>
+        </Row>
+        <br />
+        <Row>
+          <Button variant='primary'>Game of Thrones (Hard)</Button>
+        </Row>
+        <br />
+      </Container>
+    </div>
+  );
 }
 
 export default App;
