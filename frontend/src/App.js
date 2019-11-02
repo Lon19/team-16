@@ -20,7 +20,7 @@ class App extends React.Component {
             <HPBar/>
           <Row>
             <Container>
-              <StoryCard game_id='{Math.floor((Math.random() * 1000) + 1)}' user_id='89'/>
+              <StoryCard game_id='91' user_id={Math.floor((Math.random() * 1000) + 1)}/>
             </Container>
           </Row>
             <BottomNavigation/>
@@ -34,7 +34,7 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        <h1 class="text-center">Space Mission!</h1>
+        <h1 className="text-center">Space Mission!</h1>
       </div>
     );
   }
@@ -99,8 +99,8 @@ class StoryCard extends React.Component {
           </Card.Text>
           <Card.Img src="./image/4.jpg" />
           <Row>
-            <Col><Button variant="primary" onClick={this.fetchOnClickLeft}>Venus</Button></Col>
-            <Col><Button variant="primary" onClick={this.fetchOnClickRight}>Mars</Button></Col>
+            <Col className="text-center"><Button variant="primary" onClick={this.fetchOnClickLeft}>Venus</Button></Col>
+            <Col className="text-center"><Button variant="primary" onClick={this.fetchOnClickRight}>Mars</Button></Col>
           </Row>
         </Card.Body>
       </Card>
