@@ -22,7 +22,7 @@ class Game extends React.Component {
           <Row>
             <Container>
               <StoryCard
-                game_id='81'
+                game_id='11'
                 user_id={Math.floor(Math.random() * 1000 + 1)}
               />
             </Container>
@@ -66,7 +66,8 @@ class StoryCard extends React.Component {
           title: data.name,
           description: data.desc,
           childA: data.childA,
-          childB: data.childB
+          childB: data.childB,
+          image_name: data.image_name
         });
       })
       .catch(console.log);
@@ -86,7 +87,8 @@ class StoryCard extends React.Component {
           title: data.name,
           description: data.desc,
           childA: data.childA,
-          childB: data.childB
+          childB: data.childB,
+          image_name: data.image_name
         });
       })
       .catch(console.log);
@@ -101,7 +103,8 @@ class StoryCard extends React.Component {
           title: data.name,
           description: data.desc,
           childA: data.childA,
-          childB: data.childB
+          childB: data.childB,
+          image_name: data.image_name
         });
       })
       .catch(console.log);
@@ -113,7 +116,8 @@ class StoryCard extends React.Component {
         <Card.Body>
           <Card.Title>{this.state.title}</Card.Title>
           <Card.Text>{this.state.description}</Card.Text>
-          <Card.Img src='./image/4.jpg' />
+          <Card.Img src={this.state.image_name}/>
+          <br />
           <br />
           <Row>
             <Col className='text-center'>
