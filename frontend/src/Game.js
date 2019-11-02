@@ -22,11 +22,7 @@ class Game extends React.Component {
           <Row>
             <Container>
               <StoryCard
-<<<<<<< HEAD
-                game_id='91'
-=======
-                game_id='11'
->>>>>>> refs/remotes/origin/master
+                game_id='31'
                 user_id={Math.floor(Math.random() * 1000 + 1)}
               />
             </Container>
@@ -120,7 +116,7 @@ class StoryCard extends React.Component {
         <Card.Body>
           <Card.Title>{this.state.title}</Card.Title>
           <Card.Text>{this.state.description}</Card.Text>
-          <Card.Img src={this.state.image_name}/>
+          <Card.Img src={this.state.image_name} />
           <br />
           <br />
           <Row>
