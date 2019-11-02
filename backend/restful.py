@@ -76,7 +76,7 @@ def join_game(game_id, user_id):
     if (not game_id in games):
         init_game(game_id)
     game = games.get(game_id)
-    state = game.currStoryState
+    state = game.curr_story_state
     game.addPlayer(Player(state, user_id))
     return jsonify(name=state.name, desc=state.description,
                    childA=state.optionA.name, childB=state.optionB.name,
@@ -89,9 +89,9 @@ def choose_left(game_id):
     game.voteOptionLeft()
     nameOfChildA = None
     nameOfChildB = None
-    while(not game.allResponsesTaken):
+    while(not game.all_responses_taken):
         pass
-    state = game.currStoryState
+    state = game.curr_story_state
     if (state == None):
         del games[game_id]
     else:
@@ -113,9 +113,9 @@ def choose_right(game_id):
     game.voteOptionRight()
     nameOfChildA = None
     nameOfChildB = None
-    while(not game.allResponsesTaken):
+    while(not game.all_responses_taken):
         pass
-    state = game.currStoryState
+    state = game.curr_story_state
 
     if (state == None):
         del games[game_id]
