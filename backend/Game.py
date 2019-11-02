@@ -10,6 +10,7 @@ class Game:
         self.optionBVotes = 0
         self.id = id
         self.allResponsesTaken = False
+        self.endOfGame = False
 
     def updateCurrState(self):
         if self.optionAVotes > self.optionBVotes:
@@ -38,7 +39,7 @@ class Game:
         self.responseCount += 1
         if self.responseCount == len(self.players):
             self.updateCurrState()
-            self.allResponsesTaken = False
+            self.allResponsesTaken = True
 
     def addPlayer(self, player):
         self.players.append(player)
