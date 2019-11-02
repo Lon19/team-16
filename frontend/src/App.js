@@ -18,8 +18,11 @@ class App extends React.Component {
         <Container>
             <Header/>
             <HPBar/>
-            <Money/>
-            <StoryCard/>
+          <Row>
+            <Container>
+              <StoryCard/>
+            </Container>
+          </Row>
             <BottomNavigation/>
         </Container>
       </div>
@@ -31,7 +34,7 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        <h1>CLIC Sargent</h1>
+        <h1 class="text-center">CLIC Sargent</h1>
       </div>
     );
   }
@@ -45,23 +48,17 @@ class HPBar extends React.Component {
   }
 }
 
-class Money extends React.Component {
-  render() {
-    return (
-      <ion-icon name="cash"></ion-icon>
-    );
-  }
-}
-
 class StoryCard extends React.Component {
   render() {
     return (
-      <Card style={{ width: '18rem' }}>
+      <Card >
         <Card.Body>
           <Card.Title>Start your mission</Card.Title>
           <Card.Text>
             Which planet do you want to explore???
           </Card.Text>
+          <Card.Img src="./4.jpg" />
+
           <Row>
             <Col><Button variant="primary">Venus</Button></Col>
             <Col><Button variant="primary">Mars</Button></Col>
@@ -75,11 +72,13 @@ class StoryCard extends React.Component {
 class BottomNavigation extends React.Component {
   render() {
     return (
-      <Navbar fixed="bottom" >
+      <Container>
+      <Navbar expand="lg" fixed="bottom" >
         <Nav.Link href='#games'>Games</Nav.Link>
         <Nav.Link href='#home'>Home</Nav.Link>
         <Nav.Link href='#chat'>Chat</Nav.Link>
       </Navbar>
+      </Container>
     );
   }
 }
