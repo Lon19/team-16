@@ -60,7 +60,9 @@ class StoryCard extends React.Component {
     .then((data) => {
       console.log(data)
       this.setState({title: data.name,
-                     description: data.desc})
+                     description: data.desc,
+                     childA: data.childA,
+                     childB: data.childB})
     }).catch(console.log)
   }
 
@@ -75,7 +77,9 @@ class StoryCard extends React.Component {
     .then((data) => {
       console.log(data)
       this.setState({title: data.name,
-                     description: data.desc})
+                     description: data.desc,
+                     childA: data.childA,
+                     childB: data.childB})
     }).catch(console.log)
   }
 
@@ -85,7 +89,9 @@ class StoryCard extends React.Component {
     .then((data) => {
       console.log(data)
       this.setState({title: data.name,
-                     description: data.desc})
+                     description: data.desc,
+                     childA: data.childA,
+                     childB: data.childB})
     }).catch(console.log)
   }
 
@@ -99,8 +105,8 @@ class StoryCard extends React.Component {
           </Card.Text>
           <Card.Img src="./image/4.jpg" />
           <Row>
-            <Col className="text-center"><Button variant="primary" onClick={this.fetchOnClickLeft}>Venus</Button></Col>
-            <Col className="text-center"><Button variant="primary" onClick={this.fetchOnClickRight}>Mars</Button></Col>
+            <Col className="text-center"><Button variant="primary" onClick={this.fetchOnClickLeft}>{this.state.childA}</Button></Col>
+            <Col className="text-center"><Button variant="primary" onClick={this.fetchOnClickRight}>{this.state.childB}</Button></Col>
           </Row>
         </Card.Body>
       </Card>
