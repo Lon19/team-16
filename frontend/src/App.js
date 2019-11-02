@@ -20,7 +20,7 @@ class App extends React.Component {
             <HPBar/>
           <Row>
             <Container>
-              <StoryCard/>
+              <StoryCard game_id='12345' user_id='89'/>
             </Container>
           </Row>
             <BottomNavigation/>
@@ -34,7 +34,7 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        <h1 class="text-center">CLIC Sargent</h1>
+        <h1 class="text-center">Space Mission!</h1>
       </div>
     );
   }
@@ -49,16 +49,30 @@ class HPBar extends React.Component {
 }
 
 class StoryCard extends React.Component {
+  componentDidMount() {
+    fetch(`/${this.props.game_id}/${this.props.user_id}`)
+    .then(data => data.json())
+    .then((data) => {
+      console.log(data)
+      this.setState({title: data.name,
+                     description: data.desc})
+    }).catch(console.log)
+  }
+
+  state = {
+    title: "Start Your Mission!!!!!!!!!",
+    description: "mission commencing in ....."
+  }
+
   render() {
     return (
       <Card >
         <Card.Body>
-          <Card.Title>Start your mission</Card.Title>
+          <Card.Title>{this.state.title}</Card.Title>
           <Card.Text>
-            Which planet do you want to explore???
+            {this.state.description}
           </Card.Text>
-          <Card.Img src="./4.jpg" />
-
+          <Card.Img src="./image/4.jpg" />
           <Row>
             <Col><Button variant="primary">Venus</Button></Col>
             <Col><Button variant="primary">Mars</Button></Col>
