@@ -64,7 +64,7 @@ def choose_left(game_id):
 @app.route("/<int:game_id>/right", methods=["GET", "PUT"])
 def choose_right(game_id):
     game = games.get(game_id)
-    game.voteOptionLeft()
+    game.voteOptionRight()
     while(not game.allResponsesTaken):
         pass
     state = game.currStoryState
